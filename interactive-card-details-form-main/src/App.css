@@ -1,0 +1,58 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500&display=swap');
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-size: 18px;
+font-family: 'Space Grotesk', sans-serif;
+font-weight: 500;
+}
+
+.main-box{
+  width: 1040px;
+  height: 100vh;
+  background-color: wheat;
+  margin:auto;
+  display:grid;
+  grid-template-columns: 0.4fr 0.6fr;
+  grid-template-rows: 0.4fr 0.6fr ;
+  grid-template-areas:
+    "content1 content2";
+  grid-gap: 0.2rem;
+  
+}
+
+.left-bg{
+  height:100vh;
+  justify-self: stretch;
+  grid-area: content1;
+}
+
+.input-box{
+  grid-area: content2;
+  place-self: center;
+}
+
+.input-inner{
+display: flex;
+flex-direction: column;
+gap: 20px;
+}
+
+.flex-column{
+  display: flex;
+  flex-direction: column;
+}
+.flex-row{
+  display: flex;
+  flex-direction: row;
+}
+
+.name-input{
+  width: 300px;
+}
+
+.numbers-input{
+  width: 75px;
+}
