@@ -1,5 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&display=swap');
 *{
   margin: 0;
   padding: 0;
@@ -10,9 +9,9 @@ font-weight: 500;
 }
 
 .main-box{
-  width: 1040px;
+  width: 1440px;
   height: 100vh;
-  background-color: wheat;
+  background-color: white;
   margin:auto;
   display:grid;
   grid-template-columns: 0.4fr 0.6fr;
@@ -37,7 +36,7 @@ font-weight: 500;
 .input-inner{
 display: flex;
 flex-direction: column;
-gap: 20px;
+gap: 25px;
 }
 
 .flex-column{
@@ -51,8 +50,109 @@ gap: 20px;
 
 .name-input{
   width: 300px;
+  margin-top: 6px;
+
 }
 
 .numbers-input{
-  width: 75px;
+  width: 65px;
+  margin-top: 6px;
+}
+
+.uppercase{
+  text-transform: uppercase;
+  color: hsl(278, 68%, 22%);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.gap-20{
+  gap:20px;
+}
+.gap-5{
+  gap:5px;
+}
+.width-50{
+  width: 145px;
+}
+
+.input-style{
+  color:hsl(279, 6%, 55%) ;
+  padding: 4px 0px 4px 0px;
+  border-radius: 5px ;
+  border: solid hsl(279, 6%, 55%) 1px;
+  font-size: 14px;
+  height: 35px;
+  opacity: 0.4;
+  padding-left: 10px;
+}
+
+.submit-btn{
+  background-color: hsl(278, 68%, 11%);
+  color:rgba(255, 255, 255, 0.849);
+  font-size:14px;
+  height: 40px;
+  border-radius: 7px;
+  cursor: pointer;
+}
+
+input[type=text]:focus {
+  background: 
+  linear-gradient(rgb(255, 254, 254) 0 0) padding-box, 
+  linear-gradient(to right, hsl(249, 99%, 64%), hsl(278, 94%, 30%)) border-box;
+color: #313149;
+border: 1.5px solid transparent;
+border-radius: 7px;
+display: inline-block;
+    outline: none;
+
+}
+
+.front-card{
+  width: 445px;
+  height: 245px;
+  background-image: url("./images/bg-card-front.png");
+  position: absolute;
+  top:110px;
+  left:310px;
+  box-shadow: rgba(149, 157, 165, 0.253) 25px 25px 24px;
+  border-radius: 9px;
+  display: grid;
+  padding: 30px;
+  align-items: flex-end;
+  text-transform: uppercase;
+  color:white;
+
+}
+
+.space-between{
+  justify-content:space-between;
+}
+
+.back-card{
+  background-image: url("./images/bg-card-back.png");
+  width: 445px;
+  height: 245px;
+  position: absolute;
+  top:390px;
+  left:380px;
+  box-shadow: rgba(149, 157, 165, 0.253) 25px 25px 24px;
+  border-radius: 9px;
+}
+
+.card-numbers{
+  font-size: 28px;
+  letter-spacing: 3px;
+}
+
+.logo-position{
+position: relative;
+top:-30px
+}
+
+.back-card-nr{
+  color: white;
+  position: relative;
+  left:350px;
+  top:108px
 }
