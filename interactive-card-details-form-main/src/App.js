@@ -1,9 +1,32 @@
 import leftPic from "./images/bg-main-desktop.png"
 import cardLogo from "./images/card-logo.svg"
-import backCard from "./images/bg-card-back.png"
-import './App.css';
 
+import './App.css';
+import React, {useState} from "react";
 function App() {
+
+
+  const [details, setDetails]=useState({
+    name:"",
+    cardNumber:"",
+    expDateMM:"",
+    expDateYY:"",
+    cvc:""
+      }) 
+
+
+  const handleChange = (event) => {
+    event.preventDefault();
+
+    setDetails({name:event.target.value})
+  }
+
+  const handleSubmit =(event) =>{
+   
+    event.preventDefault();
+ alert("sdasd")
+  }
+
   return (
     <div className="main-box">
 
@@ -13,7 +36,7 @@ function App() {
         <img src={cardLogo} alt="card logo" className="logo-position"/>
         <div className="card-numbers">0000 0000 0000 0000</div>
         <div className="flex-row space-between">
-          <div>Jane Appleseed</div>
+          <div>{details.name}</div>
           <div>00/00</div>
         </div>
       </div>
@@ -25,13 +48,18 @@ function App() {
       <img className="left-bg" src={leftPic} alt="left bg" />
     
       <div className="input-box">
-        <form className="input-inner">
+        <form className="input-inner" 
+        onSubmit={handleSubmit}
+        >
           <label className="flex-column uppercase">
             Cardholder Name
             <input
               className="name-input input-style"
               type="text"
               placeholder="e.g. Jane Appleseed"
+            maxLength="25"
+              value={(details.name == "" ? "": details.name )}
+              onChange={handleChange}
             />
           </label>
           <label className="flex-column uppercase ">
@@ -70,7 +98,7 @@ function App() {
           <input
             className="name-input submit-btn "
             type="submit"
-            value="Confirm"
+            value="Submit"
           />
         </form>
       </div>

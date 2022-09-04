@@ -77,13 +77,13 @@ gap: 25px;
 }
 
 .input-style{
-  color:hsl(279, 6%, 55%) ;
+  color:hsl(278, 68%, 11%);
   padding: 4px 0px 4px 0px;
   border-radius: 5px ;
-  border: solid hsl(279, 6%, 55%) 1px;
+  border: solid hsla(279, 6%, 55%, 0.432) 1px;
   font-size: 14px;
   height: 35px;
-  opacity: 0.4;
+
   padding-left: 10px;
 }
 
@@ -155,4 +155,9 @@ top:-30px
   position: relative;
   left:350px;
   top:108px
+}
+
+input::placeholder{
+  color:hsl(279, 6%, 55%) ;
+  opacity: 0.4;
 }
