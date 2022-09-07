@@ -5,7 +5,7 @@ import './App.css';
 import React, {useState} from "react";
 function App() {
 
-
+ let input = React.createRef();
   const [details, setDetails]=useState({
     name:"",
     cardNumber:"",
@@ -14,17 +14,42 @@ function App() {
     cvc:""
       }) 
 
+  const [errorAlert, setErrorAlert] = useState({
+    nameError:false,
+    cardNumberError: false,
 
-  const handleChange = (event) => {
-    event.preventDefault();
+  })
 
-    setDetails({name:event.target.value})
+
+  // const handleChange = (event) => {
+  //   event.preventDefault();
+
+  //   setDetails({name:event.target.value})
+  // }
+
+ const checkInp= (string) =>{   
+
+  for(let i = 0; i< string.length; i++){
+
+    if (!isNaN(string[i]) )  {
+      setErrorAlert({nameError:true})
+  }
+  else if (isNaN(string[i])){
+    setErrorAlert({nameError:false})
+  }
+  }
+ 
   }
 
   const handleSubmit =(event) =>{
+    checkInp(input.current.value)
+    if(errorAlert.nameError === true){// find error in here
+      setDetails({ name:input.current.value})
+    }
    
+  
+
     event.preventDefault();
- alert("sdasd")
   }
 
   return (
@@ -58,9 +83,10 @@ function App() {
               type="text"
               placeholder="e.g. Jane Appleseed"
             maxLength="25"
-              value={(details.name == "" ? "": details.name )}
-              onChange={handleChange}
+            ref={input}
+             
             />
+            <div>{errorAlert.nameError ? "sdasda" : ""}</div>
           </label>
           <label className="flex-column uppercase ">
             Card Number
