@@ -36,7 +36,7 @@ font-weight: 500;
 .input-inner{
 display: flex;
 flex-direction: column;
-gap:25px;
+gap:10px;
 }
 
 .flex-column{
@@ -177,7 +177,8 @@ input::placeholder{
   text-transform: none;
   font-size: 11px;
   color: red;
-  position:absolute;
-  top: 145px;
+  position:relative;
+  min-height: 23px;
+ 
 }
 
