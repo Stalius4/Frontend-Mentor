@@ -6,49 +6,47 @@ import React, {useState} from "react";
 function App() {
 
  let input = React.createRef();
+ let numberInput = React.createRef();
   const [details, setDetails]=useState({
     name:"",
     cardNumber:"",
     expDateMM:"",
     expDateYY:"",
-    cvc:""
-      }) 
-
-  const [errorAlert, setErrorAlert] = useState({
+    cvc:"",
     nameError:false,
     cardNumberError: false,
+      }) 
 
-  })
-
-
-  // const handleChange = (event) => {
-  //   event.preventDefault();
-
-  //   setDetails({name:event.target.value})
-  // }
-
- const checkInp= (string) =>{   
-
-  for(let i = 0; i< string.length; i++){
-
-    if (!isNaN(string[i]) )  {
-      setErrorAlert({nameError:true})
+ const checkInpName= (string) =>{   
+  for(let i = 0; i< string.length; i++){// iterate  through input value 
+    if (!isNaN(string[i]) )  {// if value is number 
+      setDetails({nameError:true})
   }
-  else if (isNaN(string[i])){
-    setErrorAlert({nameError:false})
+  else if (isNaN(string[i])){// if value isnot a number
+    setDetails({
+      nameError:false, 
+      name:input.current.value
+              })
+
   }
   }
- 
+}
+
+const checkInpNumber = (number) => {
+  if(number.length == 16){
+    for(let i = 0 ; i< number.length ; i++){
+      if(!isNaN(number[i])){
+        setDetails({cardNumber:numberInput.current.value})
+      }
+    }
   }
+
+}
 
   const handleSubmit =(event) =>{
-    checkInp(input.current.value)
-    if(errorAlert.nameError === true){// find error in here
-      setDetails({ name:input.current.value})
-    }
+    //check if input value has number
+    checkInpName(input.current.value)
    
-  
-
     event.preventDefault();
   }
 
@@ -61,7 +59,7 @@ function App() {
         <img src={cardLogo} alt="card logo" className="logo-position"/>
         <div className="card-numbers">0000 0000 0000 0000</div>
         <div className="flex-row space-between">
-          <div>{details.name}</div>
+          <div>{details.name ? details.name: "Jane Appleseed"}</div>
           <div>00/00</div>
         </div>
       </div>
@@ -79,14 +77,14 @@ function App() {
           <label className="flex-column uppercase">
             Cardholder Name
             <input
-              className="name-input input-style"
+              className={details.nameError ? "name-input input-style-red" : "name-input input-style"}
               type="text"
               placeholder="e.g. Jane Appleseed"
             maxLength="25"
             ref={input}
              
             />
-            <div>{errorAlert.nameError ? "sdasda" : ""}</div>
+            <div className="error-msg">{details.nameError ? "Wrong format, letters only" : <div>&nbsp;</div>}</div>
           </label>
           <label className="flex-column uppercase ">
             Card Number
@@ -94,7 +92,9 @@ function App() {
               className="name-input input-style"
               type="text"
               placeholder="e.g. 1234 5678 9123 0000"
+              ref={numberInput}
             />
+             <div className="error-msg">{details.nameError ? "Wrong format, numbers only" : <div>&nbsp;</div>}</div>
           </label>
           <div className="flex-row  gap-20">
             <label className="flex-column uppercase">

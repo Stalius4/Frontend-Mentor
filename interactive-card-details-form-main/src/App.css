@@ -36,7 +36,7 @@ font-weight: 500;
 .input-inner{
 display: flex;
 flex-direction: column;
-gap: 25px;
+gap:25px;
 }
 
 .flex-column{
@@ -81,6 +81,17 @@ gap: 25px;
   padding: 4px 0px 4px 0px;
   border-radius: 5px ;
   border: solid hsla(279, 6%, 55%, 0.432) 1px;
+  font-size: 14px;
+  height: 35px;
+
+  padding-left: 10px;
+}
+
+.input-style-red{
+  color:hsl(278, 68%, 11%);
+  padding: 4px 0px 4px 0px;
+  border-radius: 5px ;
+  border: solid hsla(0, 91%, 44%, 0.432) 1px;
   font-size: 14px;
   height: 35px;
 
@@ -161,3 +172,12 @@ input::placeholder{
   color:hsl(279, 6%, 55%) ;
   opacity: 0.4;
 }
+
+.error-msg{
+  text-transform: none;
+  font-size: 11px;
+  color: red;
+  position:absolute;
+  top: 145px;
+}
+
