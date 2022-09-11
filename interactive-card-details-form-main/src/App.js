@@ -4,51 +4,67 @@ import cardLogo from "./images/card-logo.svg"
 import './App.css';
 import React, {useState} from "react";
 function App() {
+const initialValue = {cardHolder:"",cardNumber:"", expMM:"", expYY:"", CVC:""}
+const [formValues, setFormValues] = useState(initialValue)
 
- let input = React.createRef();
- let numberInput = React.createRef();
-  const [details, setDetails]=useState({
-    name:"",
-    cardNumber:"",
-    expDateMM:"",
-    expDateYY:"",
-    cvc:"",
-    nameError:false,
-    cardNumberError: false,
-      }) 
 
- const checkInpName= (string) =>{   
+const handleChange = (e) => {
+  
+  
+  
+  const { name, value} = e.target
+  setFormValues({...formValues, [name]:value})
+  console.log(formValues)
+  console.log("inival", formValues.name)
+  
+}
+
+
+
+
+const handleSubmit =(event) =>{
+  event.preventDefault();
+
+}
+
+const checkInpName= (string) =>{   
   for(let i = 0; i< string.length; i++){// iterate  through input value 
     if (!isNaN(string[i]) )  {// if value is number 
       setDetails({nameError:true})
+    }
+    else if (isNaN(string[i])){// if value isnot a number
+      setDetails({
+        nameError:false, 
+        name:string
+      })
+      
+    }
   }
-  else if (isNaN(string[i])){// if value isnot a number
-    setDetails({
-      nameError:false, 
-      name:input.current.value
-              })
-
-  }
-  }
+  
 }
+const [details, setDetails]=useState({
+  name:"",
+  cardNumber:"",
+  expDateMM:"",
+  expDateYY:"",
+  cvc:"",
+  nameError:false,
+  cardNumberError: false,
+    }) 
+
+
 
 const checkInpNumber = (number) => {
-  if(number.length == 16){
+  if(number.length === 16){
     for(let i = 0 ; i< number.length ; i++){
       if(!isNaN(number[i])){
-        setDetails({cardNumber:numberInput.current.value})
+        setDetails({cardNumber:number})
       }
     }
   }
 
 }
 
-  const handleSubmit =(event) =>{
-    //check if input value has number
-    checkInpName(input.current.value)
-   
-    event.preventDefault();
-  }
 
   return (
     <div className="main-box">
@@ -57,9 +73,9 @@ const checkInpNumber = (number) => {
 
       <div className="front-card">
         <img src={cardLogo} alt="card logo" className="logo-position"/>
-        <div className="card-numbers">0000 0000 0000 0000</div>
+        <div className="card-numbers">{details.cardNumber ? details.cardNumber: "0000 0000 0000 000"}</div>
         <div className="flex-row space-between">
-          <div>{details.name ? details.name: "Jane Appleseed"}</div>
+          <div>{initialValue.name ? initialValue.name: "Jane Appleseed"}</div>
           <div>00/00</div>
         </div>
       </div>
@@ -81,7 +97,10 @@ const checkInpNumber = (number) => {
               type="text"
               placeholder="e.g. Jane Appleseed"
             maxLength="25"
-            ref={input}
+            onChange={handleChange}
+            value={formValues.name}
+            name="cardHolder"
+            
              
             />
             <div className="error-msg">{details.nameError ? "Wrong format, letters only" : <div>&nbsp;</div>}</div>
@@ -90,9 +109,11 @@ const checkInpNumber = (number) => {
             Card Number
             <input
               className="name-input input-style"
-              type="text"
+              type="number"
               placeholder="e.g. 1234 5678 9123 0000"
-              ref={numberInput}
+              name= "cardNumber"
+              value={formValues.cardNumber}
+              onChange={handleChange}
             />
              <div className="error-msg">{details.nameError ? "Wrong format, numbers only" : <div>&nbsp;</div>}</div>
           </label>
@@ -102,13 +123,19 @@ const checkInpNumber = (number) => {
               <div className="flex-row gap-5">
                 <input
                   className="numbers-input input-style"
-                  type="text"
+                  type="number"
                   placeholder="MM"
+                  name="expMM"
+                  onChange={handleChange}
+                  value={formValues.expMM}
                 />
                 <input
                   className="numbers-input input-style"
-                  type="text"
+                  type="number"
                   placeholder="YY"
+                  name="expYY"
+                  onChange={handleChange}
+                  value={formValues.expYY}
                 />
               </div>
             </label>
@@ -116,8 +143,11 @@ const checkInpNumber = (number) => {
               CVC
               <input
                 className="numbers-input width-50 input-style"
-                type="text"
+                type="number"
                 placeholder="e.g. 123"
+                name="CVC"
+                onChange={handleChange}
+                value={formValues.CVC}
               />
             </label>
           </div>
