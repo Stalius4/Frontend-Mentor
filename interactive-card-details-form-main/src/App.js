@@ -23,22 +23,30 @@ console.log(formError, "form error")
 const validation = (values) => {
   const digiRegex = /^[0-9]*$/
   const errors = {}
-
-
-
     for(let i = 0; i< values.cardHolder.length; i++){
         if (digiRegex.test(values.cardHolder[i]))  {
-          errors.cardHolder= "Wrong format, letters only"
+          errors.cardHolder= "error1" //Wrong format, letters only for Cardholders name"
         }
         
+      } if(values.cardHolder.length<=0){
+        errors.cardHolder= "error2" // cannot be empty for Cardholders name
       }
     if(values.cardNumber.length<=0){
-      errors.cardNumber= "error1" // cannot be empty
+      errors.cardNumber= "error1" // cannot be empty for Card number
     } 
     for(let i = 0; i< values.cardNumber.length; i++){
       if (!digiRegex.test(values.cardNumber[i]))  {
-        errors.cardNumber= "error2" // Wrong format, numbers only
+        errors.cardNumber= "error2" // Wrong format, numbers only for Card number
       }}
+      if(values.cardNumber.length > 0 && values.cardNumber.length <= 15){
+        errors.cardNumber= "error3" // Not enough numbers for Card numbers
+      }    if(values.expMM.length <= 0 ){
+        errors.expMM= "error1" // cannot be empty for MM input
+      }    if(values.expYY.length <= 0 ){
+        errors.expYY= "error1" // cannot be empty for YY input
+      }    if(values.CVC.length <= 0 ){
+        errors.CVC= "error1" // cannot be empty for CVC input
+      }
       return errors
 }
 
@@ -50,15 +58,21 @@ return newString
 
 
   return (
+    //Credit card front display
+
+
     <div className="main-box">
       <div className="front-card">
         <img src={cardLogo} alt="card logo" className="logo-position"/>
-        <div className="card-numbers">{formValues.cardNumber ? ` ${slicedCardNumber(0,4)}  ${slicedCardNumber(4,8) }  ${slicedCardNumber(8,12)}  ${slicedCardNumber(12,16)}`: "0000 0000 0000 000"}</div>
+        <div className="card-numbers">{formValues.cardNumber  && !formError.cardNumber  ? ` ${slicedCardNumber(0,4)}  ${slicedCardNumber(4,8) }  ${slicedCardNumber(8,12)}  ${slicedCardNumber(12,16)}`: "0000 0000 0000 000"}</div>
         <div className="flex-row space-between">
-          <div>{formValues.cardHolder ? formValues.cardHolder: "Jane Appleseed"}</div>
-          <div>00/00</div>
+          <div>{formValues.cardHolder && !formError.cardHolder? formValues.cardHolder: "Jane Appleseed"}</div>
+          <div>{formValues.expMM &&  formValues.expYY?  `${formValues.expMM}/ ${formValues.expYY}`:  "00/00"}</div>
         </div>
       </div>
+
+{/* ------------------------------------------------------------------------------ */}
+{/* Credit card back display */}
 
 
       <div className="back-card">
@@ -66,6 +80,8 @@ return newString
    </div>
       <img className="left-bg" src={leftPic} alt="left bg" />
     
+{/* ------------------------------------------------------------------------------ */}
+{/* Cardholder name input */}
       <div className="input-box">
         <form className="input-inner" 
         onSubmit={handleSubmit}
@@ -81,18 +97,20 @@ return newString
             onChange={handleChange}
             value={formValues.name}
             name="cardHolder"
-            
-             
+
             />
             <div className="error-msg">
-              {formError.cardHolder ? "Wrong format, letters only" : <div>&nbsp;</div>}
+            {formError.cardHolder === "error2" ? "Can't be blank" : 
+              formError.cardHolder === "error1"? "Wrong format, letters only": <div>&nbsp;</div>}
               </div>
+{/* ------------------------------------------------------------------------------ */}
+                            {/* Card number input */}
           </label>
           <label className="flex-column uppercase ">
             Card Number
             <input
             onInput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
-              className="name-input input-style"
+            className={formError.cardNumber ? "name-input input-style-red" : "name-input input-style"}
               type="text"
               placeholder="e.g. 1234 5678 9123 0000"
               name= "cardNumber"
@@ -102,47 +120,71 @@ return newString
             />
              <div className="error-msg">
               {formError.cardNumber === "error1" ? "Can't be blank" : 
-              formError.cardNumber === "error2"?"Wrong format, numbers only": <div>&nbsp;</div>}
+              formError.cardNumber === "error2"?"Wrong format, numbers only":
+              formError.cardNumber === "error3" ? "Please enter 16 digits":<div>&nbsp;</div>}
               </div>
           </label>
+{/* ------------------------------------------------------------------------------ */}
+                            {/* Card exp MM */}
+
           <div className="flex-row  gap-20">
             <label className="flex-column uppercase">
               Exp. Date (MM/YY)
               <div className="flex-row gap-5">
                 <input
-                  className="numbers-input input-style"
-                  type="number"
+                  className={formError.expMM ?"numbers-input input-style-red" : "numbers-input input-style"}
+                  type="text"
                   placeholder="MM"
                   name="expMM"
                   onChange={handleChange}
                   value={formValues.expMM}
-                />
+                  maxLength="2"
+                />  
+                  
+{/* ------------------------------------------------------------------------------ */}
+                            {/* Card exp YY */}
                 <input
-                  className="numbers-input input-style"
-                  type="number"
+                 className={formError.expYY ?"numbers-input input-style-red" : "numbers-input input-style"}
+                  type="text"
                   placeholder="YY"
                   name="expYY"
                   onChange={handleChange}
                   value={formValues.expYY}
+                  maxLength="2"
                 />
               </div>
             </label>
+{/* ------------------------------------------------------------------------------ */}
+                            {/* Card exp CVC */}
             <label className="flex-column uppercase">
               CVC
               <input
-                className="numbers-input width-50 input-style"
-                type="number"
+                className={formError.CVC ?"numbers-input width-50 input-style-red" :"numbers-input width-50 input-style"}
+                type="text"
                 placeholder="e.g. 123"
                 name="CVC"
                 onChange={handleChange}
                 value={formValues.CVC}
+                maxLength="3"
               />
             </label>
+            
           </div>
+        <div className="flex-row gap-80">
+          <div className="error-msg ">
+                   {formError.expMM === "error1" ? "Can't be blank" : 
+                   formError.expYY === "error1" ? "Can't be blank" : <div>&nbsp;</div>}
+                   </div>
+          <div className="error-msg ">
+             {formError.CVC === "error1" ? "Can't be blank" :  <div>&nbsp;</div>}
+          </div>        
+        </div>
+{/* ------------------------------------------------------------------------------ */}
+                            {/*Submit */}
           <input
-            className="name-input submit-btn "
-            type="submit"
-            value="Submit"
+            className= "name-input submit-btn"
+            type= "submit"
+            value= "Submit"
           />
         </form>
       </div>
@@ -154,41 +196,3 @@ return newString
 
 export default App;
 
-
-// const [details, setDetails]=useState({
-//   name:"",
-//   cardNumber:"",
-//   expDateMM:"",
-//   expDateYY:"",
-//   cvc:"",
-//   nameError:false,
-//   cardNumberError: false,
-//     }) 
-
-
-
-// const checkInpNumber = (number) => {
-//   if(number.length === 16){
-//     for(let i = 0 ; i< number.length ; i++){
-//       if(!isNaN(number[i])){
-//         setDetails({cardNumber:number})
-//       }
-//     }
-//   }
-
-// }
-// const checkInpName= (string) =>{   
-//   for(let i = 0; i< string.length; i++){// iterate  through input value 
-//     if (!isNaN(string[i]) )  {// if value is number 
-//       setDetails({nameError:true})
-//     }
-//     else if (isNaN(string[i])){// if value isnot a number
-//       setDetails({
-//         nameError:false, 
-//         name:string
-//       })
-      
-//     }
-//   }
-  
-// }
