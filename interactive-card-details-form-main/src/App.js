@@ -1,12 +1,19 @@
 import leftPic from "./images/bg-main-desktop.png"
 import cardLogo from "./images/card-logo.svg"
-
+import successlogo from "./images/icon-complete.svg"
+import {createUser} from "./utils/utils.js"
 import './App.css';
 import React, {useState} from "react";
 function App() {
 const initialValue = {cardHolder:"",cardNumber:"", expMM:"", expYY:"", CVC:""}
 const [formValues, setFormValues] = useState(initialValue)
 const [formError, setFormError] = useState({})
+const [dbError, setDbError] = useState({
+  card_holder:"",
+})
+
+const success = false
+
 
 const handleChange = (e) => {
   const { name, value} = e.target
@@ -16,8 +23,13 @@ const handleChange = (e) => {
 
 const handleSubmit =(event) =>{
   event.preventDefault();
+  console.log("pirmas", formError)
 setFormError(validation(formValues))
-console.log(formError, "form error")
+if(Object.keys(formError).length === 0){ //check if object is empty
+  createUser(formValues.cardHolder, formValues.cardNumber, formValues.expMM, formValues.expYY, formValues.CVC, setDbError, dbError)
+console.log("labas", formError)
+}
+
 }
 
 const validation = (values) => {
@@ -76,12 +88,13 @@ return newString
 
 
       <div className="back-card">
-     <div className="back-card-nr">000</div> 
+     <div className="back-card-nr">{formValues.CVC && !formError.CVC? formValues.CVC: "000"}</div> 
    </div>
       <img className="left-bg" src={leftPic} alt="left bg" />
     
 {/* ------------------------------------------------------------------------------ */}
 {/* Cardholder name input */}
+{success ?
       <div className="input-box">
         <form className="input-inner" 
         onSubmit={handleSubmit}
@@ -90,7 +103,7 @@ return newString
             Cardholder Name
             <input
               className={formError.cardHolder ? "name-input input-style-red" : "name-input input-style"}
-              onInput="javascript: "
+              
               type="text"
               placeholder="e.g. Jane Appleseed"
             maxLength="25"
@@ -101,7 +114,8 @@ return newString
             />
             <div className="error-msg">
             {formError.cardHolder === "error2" ? "Can't be blank" : 
-              formError.cardHolder === "error1"? "Wrong format, letters only": <div>&nbsp;</div>}
+              formError.cardHolder === "error1"? "Wrong format, letters only":
+              dbError.card_holder ? `Card holders name ${dbError.card_holder} already exist` : <div>&nbsp;</div>}
               </div>
 {/* ------------------------------------------------------------------------------ */}
                             {/* Card number input */}
@@ -109,7 +123,7 @@ return newString
           <label className="flex-column uppercase ">
             Card Number
             <input
-            onInput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+            
             className={formError.cardNumber ? "name-input input-style-red" : "name-input input-style"}
               type="text"
               placeholder="e.g. 1234 5678 9123 0000"
@@ -188,8 +202,15 @@ return newString
           />
         </form>
       </div>
-      {/* <!-- Completed state start --> */}
-      Thank you! We've added your card details Continue
+ 
+    
+     
+      : <div>
+      <img src={successlogo} alt="card logo" />
+      <h1>Thank you!</h1>
+      <p> We've added your card details</p>
+      <button className="submit-btn">Continue</button>
+       </div>}
     </div>
   );
 }

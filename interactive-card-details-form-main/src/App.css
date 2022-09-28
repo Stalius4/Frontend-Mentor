@@ -51,7 +51,6 @@ gap:10px;
 .name-input{
   width: 300px;
   margin-top: 6px;
-
 }
 
 .numbers-input{
@@ -86,7 +85,6 @@ gap:10px;
   border: solid hsla(279, 6%, 55%, 0.432) 1px;
   font-size: 14px;
   height: 35px;
-
   padding-left: 10px;
 }
 
@@ -97,7 +95,6 @@ gap:10px;
   border: solid hsla(0, 91%, 44%, 0.432) 1px;
   font-size: 14px;
   height: 35px;
-
   padding-left: 10px;
 }
 
