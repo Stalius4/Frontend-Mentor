@@ -1,12 +1,20 @@
 import leftPic from "./images/bg-main-desktop.png"
 import cardLogo from "./images/card-logo.svg"
-
+import successlogo from "./images/icon-complete.svg"
 import './App.css';
-import React, {useState} from "react";
+import React, { useEffect, useState} from "react";
+
+
+
 function App() {
-const initialValue = {cardHolder:"",cardNumber:"", expMM:"", expYY:"", CVC:""}
+
+
+const initialValue = {cardHolder:"",cardNumber:"", expMM:"", expYY:"", CVC:"" }
 const [formValues, setFormValues] = useState(initialValue)
 const [formError, setFormError] = useState({})
+const [accepts, setAccepts]= useState(true)
+
+
 
 const handleChange = (e) => {
   const { name, value} = e.target
@@ -16,46 +24,65 @@ const handleChange = (e) => {
 
 const handleSubmit =(event) =>{
   event.preventDefault();
-setFormError(validation(formValues))
+setFormError(validation(formValues) )
 console.log(formError, "form error")
+
+ 
 }
 
+
+
 const validation = (values) => {
-  const digiRegex = /^[0-9]*$/
-  const errors = {}
-    for(let i = 0; i< values.cardHolder.length; i++){
-        if (digiRegex.test(values.cardHolder[i]))  {
-          errors.cardHolder= "error1" //Wrong format, letters only for Cardholders name"
-        }
-        
-      } if(values.cardHolder.length<=0){
-        errors.cardHolder= "error2" // cannot be empty for Cardholders name
-      }
-    if(values.cardNumber.length<=0){
-      errors.cardNumber= "error1" // cannot be empty for Card number
-    } 
-    for(let i = 0; i< values.cardNumber.length; i++){
-      if (!digiRegex.test(values.cardNumber[i]))  {
-        errors.cardNumber= "error2" // Wrong format, numbers only for Card number
-      }}
-      if(values.cardNumber.length > 0 && values.cardNumber.length <= 15){
-        errors.cardNumber= "error3" // Not enough numbers for Card numbers
-      }    if(values.expMM.length <= 0 ){
-        errors.expMM= "error1" // cannot be empty for MM input
-      }    if(values.expYY.length <= 0 ){
-        errors.expYY= "error1" // cannot be empty for YY input
-      }    if(values.CVC.length <= 0 ){
-        errors.CVC= "error1" // cannot be empty for CVC input
-      }
-      return errors
-}
+  const digiRegex = /^[0-9]*$/;
+  const errors = {};
+
+
+
+
+  for (let i = 0; i < values.cardHolder.length; i++) {
+    if (digiRegex.test(values.cardHolder[i])) {
+      errors.cardHolder = "error1"; //Wrong format, letters only for Cardholders name"
+    }
+  }
+
+   if (values.cardHolder.length <= 0) {
+    errors.cardHolder = "error2"; // cannot be empty for Cardholders name
+  }
+
+  if (values.cardNumber.length <= 0) {
+    errors.cardNumber = "error1"; // cannot be empty for Card number
+  }
+
+  for (let i = 0; i < values.cardNumber.length; i++) {
+    if (!digiRegex.test(values.cardNumber[i])) {
+      errors.cardNumber = "error2"; // Wrong format, numbers only for Card number
+    }
+  }
+  if (values.cardNumber.length > 0 && values.cardNumber.length <= 15) {
+    errors.cardNumber = "error3"; // Not enough numbers for Card numbers
+  }
+  if (values.expMM.length <= 0) {
+    errors.expMM = "error1"; // cannot be empty for MM input
+  }
+  if (values.expYY.length <= 0) {
+    errors.expYY = "error1"; // cannot be empty for YY input
+  }
+  if (values.CVC.length <= 0) {
+    errors.CVC = "error1"; // cannot be empty for CVC input
+  } 
+  return errors;
+};
 
 const slicedCardNumber = ( num1, num2) =>{
 const cardNumbers = formValues.cardNumber
 const newString =cardNumbers.slice(num1, num2)
 return newString
 }
-
+useEffect(() => {
+  if (Object.keys(formError).length === 0){
+    setAccepts(false)
+    }
+},[formValues]);
 
   return (
     //Credit card front display
@@ -82,6 +109,7 @@ return newString
     
 {/* ------------------------------------------------------------------------------ */}
 {/* Cardholder name input */}
+{accepts==true ?
       <div className="input-box">
         <form className="input-inner" 
         onSubmit={handleSubmit}
@@ -90,7 +118,7 @@ return newString
             Cardholder Name
             <input
               className={formError.cardHolder ? "name-input input-style-red" : "name-input input-style"}
-              onInput="javascript: "
+             
               type="text"
               placeholder="e.g. Jane Appleseed"
             maxLength="25"
@@ -109,7 +137,6 @@ return newString
           <label className="flex-column uppercase ">
             Card Number
             <input
-            onInput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
             className={formError.cardNumber ? "name-input input-style-red" : "name-input input-style"}
               type="text"
               placeholder="e.g. 1234 5678 9123 0000"
@@ -187,9 +214,13 @@ return newString
             value= "Submit"
           />
         </form>
-      </div>
-      {/* <!-- Completed state start --> */}
-      Thank you! We've added your card details Continue
+        </div>
+        : <div className="thank-you-box">
+      <img src={successlogo} alt="card logo" width={50} />
+      <h1 className="thank-you-h1" >THANK YOU!</h1>
+      <p className=""> We've added your card details</p>
+      <button className="submit-btn width-250">Continue</button>
+       </div>}
     </div>
   );
 }

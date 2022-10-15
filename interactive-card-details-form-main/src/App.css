@@ -78,6 +78,9 @@ gap:10px;
 .width-50{
   width: 145px;
 }
+.width-250{
+  width: 250px;
+}
 
 .input-style{
   color:hsl(278, 68%, 11%);
@@ -185,3 +188,20 @@ input::placeholder{
  
 }
 
+
+.thank-you-box{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+.thank-you-h1{
+  color:hsl(278, 47%, 37%)
+}
+p{
+  opacity: 0.5;
+  font-size: 12px;
+  margin-top: -15px;
+}
