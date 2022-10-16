@@ -100,7 +100,15 @@ gap:10px;
   border: solid hsla(0, 91%, 44%, 0.432) 1px;
   font-size: 14px;
   height: 35px;
-
+  padding-left: 10px;
+}
+.input-style-green{
+  color:green;
+  padding: 4px 0px 4px 0px;
+  border-radius: 5px ;
+  border: solid green 1px;
+  font-size: 14px;
+  height: 35px;
   padding-left: 10px;
 }
 

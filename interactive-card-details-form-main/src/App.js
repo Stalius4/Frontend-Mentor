@@ -26,7 +26,7 @@ const handleSubmit =(event) =>{
   event.preventDefault();
 setFormError(validation(formValues) )
 console.log(formError, "form error")
-console.log(accepts, "submit accepts")
+console.log(formValues, "form values")
  
 }
 // useEffect(() => {
@@ -54,19 +54,51 @@ const validation = (values) => {
     errors.cardHolder = "error2"; // cannot be empty for Cardholders name
   }else{ errors.cardHolder = "success"}
 
+
+
+
+
   if (values.cardNumber.length <= 0) {
     errors.cardNumber = "error1"; // cannot be empty for Card number
-  }else{ errors.cardNumber = "success"}
+  }
 
+
+  
+  if (values.cardNumber.length >= 1 && values.cardNumber.length <= 15) {
+    errors.cardNumber = "error3"; // Not enough numbers for Card numbers
+  }
   for (let i = 0; i < values.cardNumber.length; i++) {
     if (!digiRegex.test(values.cardNumber[i])) {
       errors.cardNumber = "error2"; // Wrong format, numbers only for Card number
-    }else{ errors.cardNumber = "success"}
+    }
 
-  }
-  if (values.cardNumber.length > 0 && values.cardNumber.length <= 15) {
-    errors.cardNumber = "error3"; // Not enough numbers for Card numbers
-  }else{ errors.cardNumber = "success"}
+  
+ if (values.cardNumber.length > 0
+   && values.cardNumber.length >= 1 && values.cardNumber.length > 15
+   && digiRegex.test(values.cardNumber[i]) 
+   )
+ {errors.cardNumber = "success"}
+}
+  
+  // for (let i = 0; i < values.cardNumber.length; i++) {
+  //   if (!digiRegex.test(values.cardNumber[i])) {
+  //     errors.cardNumber = "error2";  // Wrong format, numbers only for Card number
+  //   } else if (values.cardNumber.length > 0 && values.cardNumber.length <= 15) {
+  //     errors.cardNumber = "error3"; // Not enough numbers for Card numbers
+  //   } else if (values.cardNumber.length === 0) {
+  //     errors.cardNumber = "error1"; // cannot be empty for Card number
+  //     console.log("eroras")
+  //   } else {
+  //     errors.cardNumber = "success";
+  //   }
+ 
+  // }
+
+
+
+
+
+
 
   if (values.expMM.length <= 0) {
     errors.expMM = "error1"; // cannot be empty for MM input
@@ -95,9 +127,9 @@ return newString
     <div className="main-box">
       <div className="front-card">
         <img src={cardLogo} alt="card logo" className="logo-position"/>
-        <div className="card-numbers">{formValues.cardNumber === "success" && !formError.cardNumber === "success" ? ` ${slicedCardNumber(0,4)}  ${slicedCardNumber(4,8) }  ${slicedCardNumber(8,12)}  ${slicedCardNumber(12,16)}`: "0000 0000 0000 000"}</div>
+        <div className="card-numbers">{formValues.cardNumber   ? ` ${slicedCardNumber(0,4)}  ${slicedCardNumber(4,8) }  ${slicedCardNumber(8,12)}  ${slicedCardNumber(12,16)}`: "0000 0000 0000 000"}</div>
         <div className="flex-row space-between">
-          <div>{formValues.cardHolder && !formError.cardHolder? formValues.cardHolder: "Jane Appleseed"}</div>
+          <div>{formValues.cardHolder ? formValues.cardHolder: "Jane Appleseed"}</div>
           <div>{formValues.expMM &&  formValues.expYY?  `${formValues.expMM}/ ${formValues.expYY}`:  "00/00"}</div>
         </div>
       </div>
@@ -142,7 +174,10 @@ return newString
           <label className="flex-column uppercase ">
             Card Number
             <input
-            className={formError.cardNumber ? "name-input input-style-red" : "name-input input-style"}
+            className={formError.cardNumber === "error1" ? "name-input input-style-red" :
+            formError.cardNumber === "error2" ? "name-input input-style-red":
+            formError.cardNumber === "error3" ? "name-input input-style-red":
+            formError.cardNumber === "success" ? "name-input input-style-green": "name-input input-style"}
               type="text"
               placeholder="e.g. 1234 5678 9123 0000"
               name= "cardNumber"
