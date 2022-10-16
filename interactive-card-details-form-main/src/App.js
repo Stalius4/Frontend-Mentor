@@ -43,18 +43,21 @@ const validation = (values) => {
 
 
 
-
+  if (values.cardHolder.length <= 0) {
+    errors.cardHolder = "error2"; // cannot be empty for Cardholders name
+  }
   for (let i = 0; i < values.cardHolder.length; i++) {
     if (digiRegex.test(values.cardHolder[i])) {
       errors.cardHolder = "error1"; //Wrong format, letters only for Cardholders name"
-    }else{ errors.cardHolder = "success"}
+    }
+  
+
+
+  if (!digiRegex.test(values.cardHolder[i]) && values.cardHolder.length > 0){
+    errors.cardHolder = "success"
   }
 
-   if (values.cardHolder.length <= 0) {
-    errors.cardHolder = "error2"; // cannot be empty for Cardholders name
-  }else{ errors.cardHolder = "success"}
-
-
+}
 
 
 
@@ -62,8 +65,6 @@ const validation = (values) => {
     errors.cardNumber = "error1"; // cannot be empty for Card number
   }
 
-
-  
   if (values.cardNumber.length >= 1 && values.cardNumber.length <= 15) {
     errors.cardNumber = "error3"; // Not enough numbers for Card numbers
   }
@@ -80,25 +81,6 @@ const validation = (values) => {
  {errors.cardNumber = "success"}
 }
   
-  // for (let i = 0; i < values.cardNumber.length; i++) {
-  //   if (!digiRegex.test(values.cardNumber[i])) {
-  //     errors.cardNumber = "error2";  // Wrong format, numbers only for Card number
-  //   } else if (values.cardNumber.length > 0 && values.cardNumber.length <= 15) {
-  //     errors.cardNumber = "error3"; // Not enough numbers for Card numbers
-  //   } else if (values.cardNumber.length === 0) {
-  //     errors.cardNumber = "error1"; // cannot be empty for Card number
-  //     console.log("eroras")
-  //   } else {
-  //     errors.cardNumber = "success";
-  //   }
- 
-  // }
-
-
-
-
-
-
 
   if (values.expMM.length <= 0) {
     errors.expMM = "error1"; // cannot be empty for MM input
@@ -153,8 +135,10 @@ return newString
           <label className="flex-column uppercase">
             Cardholder Name
             <input
-              className={formError.cardHolder === "error1"? "name-input input-style-red" :
-              formError.cardHolder === "sucess" ? "name-input input-style" : "name-input input-style"}
+            className={
+              formError.cardHolder === "error1" ? "name-input input-style-red" :
+              formError.cardHolder === "error2" ? "name-input input-style-red":
+              formError.cardHolder === "success" ? "name-input input-style-green": "name-input input-style"}
              
               type="text"
               placeholder="e.g. Jane Appleseed"
