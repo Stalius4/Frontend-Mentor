@@ -26,10 +26,15 @@ const handleSubmit =(event) =>{
   event.preventDefault();
 setFormError(validation(formValues) )
 console.log(formError, "form error")
-
+console.log(accepts, "submit accepts")
  
 }
+// useEffect(() => {
+//   if(formError.cardHolder === "success" && formError.cardNumber === "success" && formError.expMM === "success" && formError.expYY === "success" && formError.CVC === "success" ){
+//     setAccepts(false)
+//   }
 
+// }, [formError])
 
 
 const validation = (values) => {
@@ -42,34 +47,37 @@ const validation = (values) => {
   for (let i = 0; i < values.cardHolder.length; i++) {
     if (digiRegex.test(values.cardHolder[i])) {
       errors.cardHolder = "error1"; //Wrong format, letters only for Cardholders name"
-    }
+    }else{ errors.cardHolder = "success"}
   }
 
    if (values.cardHolder.length <= 0) {
     errors.cardHolder = "error2"; // cannot be empty for Cardholders name
-  }
+  }else{ errors.cardHolder = "success"}
 
   if (values.cardNumber.length <= 0) {
     errors.cardNumber = "error1"; // cannot be empty for Card number
-  }
+  }else{ errors.cardNumber = "success"}
 
   for (let i = 0; i < values.cardNumber.length; i++) {
     if (!digiRegex.test(values.cardNumber[i])) {
       errors.cardNumber = "error2"; // Wrong format, numbers only for Card number
-    }
+    }else{ errors.cardNumber = "success"}
+
   }
   if (values.cardNumber.length > 0 && values.cardNumber.length <= 15) {
     errors.cardNumber = "error3"; // Not enough numbers for Card numbers
-  }
+  }else{ errors.cardNumber = "success"}
+
   if (values.expMM.length <= 0) {
     errors.expMM = "error1"; // cannot be empty for MM input
-  }
+  }else{ errors.expMM = "success"}
+
   if (values.expYY.length <= 0) {
     errors.expYY = "error1"; // cannot be empty for YY input
-  }
+  }else{ errors.expYY = "success"}
   if (values.CVC.length <= 0) {
     errors.CVC = "error1"; // cannot be empty for CVC input
-  } 
+  } else{ errors.CVC = "success"}
   return errors;
 };
 
@@ -78,11 +86,7 @@ const cardNumbers = formValues.cardNumber
 const newString =cardNumbers.slice(num1, num2)
 return newString
 }
-useEffect(() => {
-  if (Object.keys(formError).length === 0){
-    setAccepts(false)
-    }
-},[formValues]);
+
 
   return (
     //Credit card front display
@@ -91,7 +95,7 @@ useEffect(() => {
     <div className="main-box">
       <div className="front-card">
         <img src={cardLogo} alt="card logo" className="logo-position"/>
-        <div className="card-numbers">{formValues.cardNumber  && !formError.cardNumber  ? ` ${slicedCardNumber(0,4)}  ${slicedCardNumber(4,8) }  ${slicedCardNumber(8,12)}  ${slicedCardNumber(12,16)}`: "0000 0000 0000 000"}</div>
+        <div className="card-numbers">{formValues.cardNumber === "success" && !formError.cardNumber === "success" ? ` ${slicedCardNumber(0,4)}  ${slicedCardNumber(4,8) }  ${slicedCardNumber(8,12)}  ${slicedCardNumber(12,16)}`: "0000 0000 0000 000"}</div>
         <div className="flex-row space-between">
           <div>{formValues.cardHolder && !formError.cardHolder? formValues.cardHolder: "Jane Appleseed"}</div>
           <div>{formValues.expMM &&  formValues.expYY?  `${formValues.expMM}/ ${formValues.expYY}`:  "00/00"}</div>
@@ -109,7 +113,7 @@ useEffect(() => {
     
 {/* ------------------------------------------------------------------------------ */}
 {/* Cardholder name input */}
-{accepts==true ?
+{accepts===true?
       <div className="input-box">
         <form className="input-inner" 
         onSubmit={handleSubmit}
@@ -117,7 +121,8 @@ useEffect(() => {
           <label className="flex-column uppercase">
             Cardholder Name
             <input
-              className={formError.cardHolder ? "name-input input-style-red" : "name-input input-style"}
+              className={formError.cardHolder === "error1"? "name-input input-style-red" :
+              formError.cardHolder === "sucess" ? "name-input input-style" : "name-input input-style"}
              
               type="text"
               placeholder="e.g. Jane Appleseed"
