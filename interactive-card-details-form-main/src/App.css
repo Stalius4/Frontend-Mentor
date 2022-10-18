@@ -213,3 +213,32 @@ p{
   font-size: 12px;
   margin-top: -15px;
 }
+
+.last-input-error-msg{
+  display: grid;
+  grid-template-columns: 156px 95px ;
+grid-template-rows: 25px;
+grid-template-areas:
+  " content1  content2"
+;
+}
+
+.error-msg-mm-yy{
+  grid-area: content1;
+
+}
+
+.error-msg-cvc{
+  grid-area: content2;
+
+}
+
+
+.input-style-green-cvc{
+  color:green;
+  
+  border-radius: 5px ;
+  border: solid green 1px;
+  font-size: 14px;
+  height: 35px;
+}

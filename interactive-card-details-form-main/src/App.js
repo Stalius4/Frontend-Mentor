@@ -84,14 +84,44 @@ const validation = (values) => {
 
   if (values.expMM.length <= 0) {
     errors.expMM = "error1"; // cannot be empty for MM input
-  }else{ errors.expMM = "success"}
+  }
+  for (let i = 0; i < values.expMM.length; i++) {
+    if (!digiRegex.test(values.expMM[i])) {
+      errors.expMM = "error2"
+  }
+
+ }
+
+
+  
+
 
   if (values.expYY.length <= 0) {
     errors.expYY = "error1"; // cannot be empty for YY input
   }else{ errors.expYY = "success"}
+
+
+
   if (values.CVC.length <= 0) {
     errors.CVC = "error1"; // cannot be empty for CVC input
-  } else{ errors.CVC = "success"}
+  }
+
+
+  if(values.CVC.length >= 1 && values.CVC.length <= 2){
+    errors.CVC = "error3"
+  }
+  for (let i = 0; i < values.CVC.length; i++) {
+    if (!digiRegex.test(values.CVC[i])) {
+      errors.CVC = "error2"
+  }
+
+  if (
+    values.CVC.length > 2 
+    && digiRegex.test(values.CVC[i]) 
+    )
+  {errors.CVC = "success"}
+}
+ 
   return errors;
 };
 
@@ -112,7 +142,7 @@ return newString
         <div className="card-numbers">{formValues.cardNumber   ? ` ${slicedCardNumber(0,4)}  ${slicedCardNumber(4,8) }  ${slicedCardNumber(8,12)}  ${slicedCardNumber(12,16)}`: "0000 0000 0000 000"}</div>
         <div className="flex-row space-between">
           <div>{formValues.cardHolder ? formValues.cardHolder: "Jane Appleseed"}</div>
-          <div>{formValues.expMM &&  formValues.expYY?  `${formValues.expMM}/ ${formValues.expYY}`:  "00/00"}</div>
+          <div>{formValues.expMM ||  formValues.expYY?  `${formValues.expMM}/ ${formValues.expYY}`:  "00/00"}</div>
         </div>
       </div>
 
@@ -121,7 +151,7 @@ return newString
 
 
       <div className="back-card">
-     <div className="back-card-nr">000</div> 
+     <div className="back-card-nr">{formValues.CVC ? formValues.CVC : "000"} </div> 
    </div>
       <img className="left-bg" src={leftPic} alt="left bg" />
     
@@ -183,7 +213,7 @@ return newString
               Exp. Date (MM/YY)
               <div className="flex-row gap-5">
                 <input
-                  className={formError.expMM ?"numbers-input input-style-red" : "numbers-input input-style"}
+                  className={formError.expMM === "error1" || formError.expMM === "error2" ?"numbers-input input-style-red" : "numbers-input input-style"}
                   type="text"
                   placeholder="MM"
                   name="expMM"
@@ -195,7 +225,7 @@ return newString
 {/* ------------------------------------------------------------------------------ */}
                             {/* Card exp YY */}
                 <input
-                 className={formError.expYY ?"numbers-input input-style-red" : "numbers-input input-style"}
+                 className={formError.expYY === "error1"?"numbers-input input-style-red" : "numbers-input input-style"}
                   type="text"
                   placeholder="YY"
                   name="expYY"
@@ -210,7 +240,8 @@ return newString
             <label className="flex-column uppercase">
               CVC
               <input
-                className={formError.CVC ?"numbers-input width-50 input-style-red" :"numbers-input width-50 input-style"}
+                className={formError.CVC === "error1" || formError.CVC === "error2" || formError.CVC === "error3"?"numbers-input width-50 input-style-red" :
+                formError.CVC === "success" ? "numbers-input width-50 input-style-green": "numbers-input width-50 input-style"}
                 type="text"
                 placeholder="e.g. 123"
                 name="CVC"
@@ -221,13 +252,15 @@ return newString
             </label>
             
           </div>
-        <div className="flex-row gap-80">
-          <div className="error-msg ">
+        <div className="last-input-error-msg">
+          <div className="error-msg-mm-yy error-msg">
                    {formError.expMM === "error1" ? "Can't be blank" : 
                    formError.expYY === "error1" ? "Can't be blank" : <div>&nbsp;</div>}
                    </div>
-          <div className="error-msg ">
-             {formError.CVC === "error1" ? "Can't be blank" :  <div>&nbsp;</div>}
+          <div className="error-msg-cvc error-msg">
+             {formError.CVC === "error1" ? "Can't be blank" : 
+             formError.CVC === "error2"? "Wrong format, numbers only" :
+             formError.CVC === "error3" ? "Please enter 3 digits": <div>&nbsp;</div>}
           </div>        
         </div>
 {/* ------------------------------------------------------------------------------ */}
