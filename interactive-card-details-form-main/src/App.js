@@ -29,12 +29,12 @@ console.log(formError, "form error")
 console.log(formValues, "form values")
  
 }
-// useEffect(() => {
-//   if(formError.cardHolder === "success" && formError.cardNumber === "success" && formError.expMM === "success" && formError.expYY === "success" && formError.CVC === "success" ){
-//     setAccepts(false)
-//   }
+useEffect(() => {
+  if(formError.cardHolder === "success" && formError.cardNumber === "success" && formError.expMM === "success" && formError.expYY === "success" && formError.CVC === "success" ){
+    setAccepts(false)
+  }
 
-// }, [formError])
+}, [formError])
 
 
 const validation = (values) => {
@@ -91,14 +91,17 @@ const validation = (values) => {
   }
 
  }
-
+ if(values.expMM.length === 2)
+  { errors.expMM = "success"}
 
   
 
 
   if (values.expYY.length <= 0) {
     errors.expYY = "error1"; // cannot be empty for YY input
-  }else{ errors.expYY = "success"}
+  }
+  if(values.expYY.length === 2)
+  { errors.expYY = "success"}
 
 
 
@@ -213,7 +216,8 @@ return newString
               Exp. Date (MM/YY)
               <div className="flex-row gap-5">
                 <input
-                  className={formError.expMM === "error1" || formError.expMM === "error2" ?"numbers-input input-style-red" : "numbers-input input-style"}
+                  className={formError.expMM === "error1" || formError.expMM === "error2" ?"numbers-input input-style-red" :
+                  formError.expMM === "success"? "numbers-input input-style-green": "numbers-input input-style" }
                   type="text"
                   placeholder="MM"
                   name="expMM"
@@ -225,7 +229,8 @@ return newString
 {/* ------------------------------------------------------------------------------ */}
                             {/* Card exp YY */}
                 <input
-                 className={formError.expYY === "error1"?"numbers-input input-style-red" : "numbers-input input-style"}
+                 className={formError.expYY === "error1"?"numbers-input input-style-red" :
+                 formError.expYY === "success"?  "numbers-input input-style-green" : "numbers-input input-style"}
                   type="text"
                   placeholder="YY"
                   name="expYY"
