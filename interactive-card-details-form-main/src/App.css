@@ -27,7 +27,9 @@ font-weight: 500;
   justify-self: stretch;
   grid-area: content1;
 }
-
+.top-bg{
+  display:none;
+}
 .input-box{
   grid-area: content2;
   place-self: center;
@@ -241,4 +243,132 @@ grid-template-areas:
   border: solid green 1px;
   font-size: 14px;
   height: 35px;
+}
+
+@media only screen and (max-width: 375px) {
+  .main-box{
+    max-width: 375px;
+    max-height: 704px;
+    background-color: white;
+    margin:auto;
+    display:grid;
+    grid-template-columns: 375px ;
+    grid-template-rows: 240px 464px ;
+    grid-template-areas:
+      "content1 "
+      "content2";
+    grid-gap: 0.2rem;
+    
+  }
+.left-bg{
+  display: none;
+}
+
+.top-bg{
+  display: inline;
+  grid-area: content1;
+}
+.front-card{
+  width: 286px;
+  height: 157px;
+  grid-area: content1;
+  background-image: url("./images/bg-card-front.png");
+  position: absolute;
+  top:126px;
+  left:16px;
+  box-shadow: none;
+  border-radius: 9px;
+  display: grid;
+  
+  /* align-items: flex-end; */
+  text-transform: uppercase;
+  color:white;
+  z-index: 2;
+
+}
+.logo-position{
+  position: absolute;
+  width: 53.77px;
+  height: 30px;
+  left: 20px;
+  top: 18px;
+  }
+
+  .back-card{
+    position: absolute;
+width: 286px;
+height: 157px;
+left: 73px;
+top: 32px;
+z-index: 1;
+box-shadow: none;
+  }
+.card-numbers{
+  position: absolute;
+height: 23px;
+left: 6.99%;
+right: 9.44%;
+top: calc(50% - 23px/2 + 18px);
+width: 245px;
+font-family: 'Space Grotesk';
+font-style: normal;
+font-weight: 500;
+font-size: 18px;
+line-height: 23px;
+/* identical to box height */
+
+letter-spacing: 2.2px;
+
+/* White */
+
+color: #FFFFFF;
+}
+.mobile-card-name{
+  position: absolute;
+  height: 11px;
+  left: 0%;
+  right: 63.69%;
+  top: calc(50% - 11px/2 - 0.5px);
+  
+  font-family: 'Space Grotesk';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 9px;
+  line-height: 11px;
+  letter-spacing: 1.28571px;
+  text-transform: uppercase;
+  width: 90px;
+  /* White */
+  
+  color: #FFFFFF;
+}
+.mobile-card-date{
+  position: absolute;
+height: 11px;
+left: 86.94%;
+right: 0%;
+top: calc(50% - 11px/2 - 0.5px);
+
+font-family: 'Space Grotesk';
+font-style: normal;
+font-weight: 500;
+font-size: 9px;
+line-height: 11px;
+text-align: right;
+letter-spacing: 1.28571px;
+text-transform: uppercase;
+
+/* White */
+
+color: #FFFFFF;
+}
+
+.mobile-details{
+  position: absolute;
+left: 6.99%;
+right: 7.31%;
+top: 79.62%;
+bottom: 12.74%;
+
+}
 }

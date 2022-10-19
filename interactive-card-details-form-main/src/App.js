@@ -1,6 +1,7 @@
 import leftPic from "./images/bg-main-desktop.png"
 import cardLogo from "./images/card-logo.svg"
 import successlogo from "./images/icon-complete.svg"
+import topBg from "./images/bg-main-mobile.png"
 import './App.css';
 import React, { useEffect, useState} from "react";
 
@@ -25,8 +26,7 @@ const handleChange = (e) => {
 const handleSubmit =(event) =>{
   event.preventDefault();
 setFormError(validation(formValues) )
-console.log(formError, "form error")
-console.log(formValues, "form values")
+
  
 }
 useEffect(() => {
@@ -142,10 +142,10 @@ return newString
     <div className="main-box">
       <div className="front-card">
         <img src={cardLogo} alt="card logo" className="logo-position"/>
-        <div className="card-numbers">{formValues.cardNumber   ? ` ${slicedCardNumber(0,4)}  ${slicedCardNumber(4,8) }  ${slicedCardNumber(8,12)}  ${slicedCardNumber(12,16)}`: "0000 0000 0000 000"}</div>
-        <div className="flex-row space-between">
-          <div>{formValues.cardHolder ? formValues.cardHolder: "Jane Appleseed"}</div>
-          <div>{formValues.expMM ||  formValues.expYY?  `${formValues.expMM}/ ${formValues.expYY}`:  "00/00"}</div>
+        <div className="card-numbers">{formValues.cardNumber   ? ` ${slicedCardNumber(0,4)}  ${slicedCardNumber(4,8) }  ${slicedCardNumber(8,12)}  ${slicedCardNumber(12,16)}`: "0000 0000 0000 0000"}</div>
+        <div className="flex-row space-between mobile-details">
+          <div className=" mobile-card-name">{formValues.cardHolder ? formValues.cardHolder: "Jane Appleseed"}</div>
+          <div className="mobile-card-date">{formValues.expMM ||  formValues.expYY?  `${formValues.expMM}/ ${formValues.expYY}`:  "00/00"}</div>
         </div>
       </div>
 
@@ -157,6 +157,7 @@ return newString
      <div className="back-card-nr">{formValues.CVC ? formValues.CVC : "000"} </div> 
    </div>
       <img className="left-bg" src={leftPic} alt="left bg" />
+      <img className="top-bg" src={topBg} alt="top bg" />
     
 {/* ------------------------------------------------------------------------------ */}
 {/* Cardholder name input */}
