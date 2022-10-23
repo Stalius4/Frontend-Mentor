@@ -273,8 +273,9 @@ grid-template-areas:
   height: 157px;
   grid-area: content1;
   background-image: url("./images/bg-card-front.png");
+  background-size: 100%;
   position: absolute;
-  top:126px;
+  top:123px;
   left:16px;
   box-shadow: none;
   border-radius: 9px;
@@ -295,11 +296,13 @@ grid-template-areas:
   }
 
   .back-card{
+    background-image: url("./images/bg-card-back.png");
+    background-size: 100%;
     position: absolute;
 width: 286px;
 height: 157px;
 left: 73px;
-top: 32px;
+top: 34px;
 z-index: 1;
 box-shadow: none;
   }
@@ -337,7 +340,7 @@ color: #FFFFFF;
   line-height: 11px;
   letter-spacing: 1.28571px;
   text-transform: uppercase;
-  width: 90px;
+  width: 150px;
   /* White */
   
   color: #FFFFFF;
@@ -370,5 +373,35 @@ right: 7.31%;
 top: 79.62%;
 bottom: 12.74%;
 
+}
+
+.back-card-nr{
+  position: absolute;
+  height: 11px;
+  left: 73.67%;
+  right:35px;
+  top: calc(50% - 11px/2 - 0.46px);
+  
+  font-family: 'Space Grotesk';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 9px;
+  line-height: 11px;
+  text-align: right;
+  letter-spacing: 1.28571px;
+  text-transform: uppercase;
+  
+  /* White */
+  
+  color: #FFFFFF;
+  
+}
+
+.input-box{
+  position: absolute;
+width: 327px;
+height: 328px;
+left: 24px;
+top: 331px;
 }
 }
