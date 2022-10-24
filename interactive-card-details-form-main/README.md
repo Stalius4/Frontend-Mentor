@@ -28,7 +28,7 @@ Users should be able to:
 ### Links
 
 
-- Live Site URL: [](https://bejewelled-pie-231382.netlify.app/)
+- Live Site URL: [Card form](https://bejewelled-pie-231382.netlify.app/)
 
 ## My process
 
@@ -117,7 +117,7 @@ const proudOfThisFunc = () => {
 
 
 - Frontend Mentor - [@Stalius4](https://www.frontendmentor.io/profile/yourusername)
-- Twitter - [@yourusername](https://www.twitter.com/yourusername)
+
 - Linkedin - [Deivydas Rimgaila](https://www.linkedin.com/in/deivydas-rimgaila-8aa787218/)
 
 
