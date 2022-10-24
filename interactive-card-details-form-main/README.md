@@ -99,11 +99,7 @@ outline: none;
 
 }
 ```
-```js
-const proudOfThisFunc = () => {
-  console.log('🎉')
-}
-```
+
 
 
 
@@ -116,7 +112,7 @@ const proudOfThisFunc = () => {
 ## Author
 
 
-- Frontend Mentor - [@Stalius4](https://www.frontendmentor.io/profile/yourusername)
+- Frontend Mentor - [@Stalius4](https://www.frontendmentor.io/profile/Stalius4)
 
 - Linkedin - [Deivydas Rimgaila](https://www.linkedin.com/in/deivydas-rimgaila-8aa787218/)
 
