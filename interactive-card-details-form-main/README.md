@@ -21,7 +21,7 @@ Users should be able to:
 
 ### Screenshot
 
-![](./images/Credit-card-form.png)
+![](src/images/Credit-card-form.png)
 
 
 
