@@ -19,7 +19,8 @@ function App() {
   };
   useEffect(() => {
     fetchData();
-  }, []);
+    // eslint-disable-next-line
+  },[]);
 
   const handleChange = () => {
     fetchData();
