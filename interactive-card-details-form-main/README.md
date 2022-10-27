@@ -21,13 +21,12 @@ Users should be able to:
 
 ### Screenshot
 
-![](./images/Credit-card-form.png)
+![](/images/Credit-card-form.png)
 
 
 
 ### Links
 
-- Solution URL: [Add solution URL here](https://your-solution-url.com)
 - Live Site URL: [Add live site URL here](https://bejewelled-pie-231382.netlify.app/)
 
 ## My process
@@ -99,11 +98,7 @@ outline: none;
 
 }
 ```
-```js
-const proudOfThisFunc = () => {
-  console.log('🎉')
-}
-```
+
 
 
 
@@ -117,7 +112,6 @@ const proudOfThisFunc = () => {
 
 
 - Frontend Mentor - [@Stalius4](https://www.frontendmentor.io/profile/yourusername)
-- Twitter - [@yourusername](https://www.twitter.com/yourusername)
 - Linkedin - [Deivydas Rimgaila](https://www.linkedin.com/in/deivydas-rimgaila-8aa787218/)
 
 
