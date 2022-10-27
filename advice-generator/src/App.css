@@ -1,0 +1,96 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@800&display=swap');
+
+* {
+  box-sizing: border-box;
+  margin: auto;
+  padding: 0;
+}
+
+.main-box {
+  position: relative;
+  width: 1440px;
+  height: 810px;
+  background: #202733;
+}
+
+.advice-box {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 540px;
+  height: 332px;
+  background: #313A48;
+  box-shadow: 30px 50px 80px rgba(0, 0, 0, 0.100202);
+  border-radius: 15px;
+
+}
+
+.innerbox-flex {
+  padding: 48px 48px 0px 48px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.green-circle {
+  width: 64px;
+  height: 64px;
+  background-color: hsl(150, 100%, 66%);
+  border-radius: 50%;
+  position: absolute;
+  left: 238px;
+  top: 45px;
+}
+
+.dice {
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.advice-id {
+  font-family: 'Manrope';
+  font-style: normal;
+  font-weight: 800;
+  font-size: 13px;
+  line-height: 18px;
+  /* identical to box height */
+
+  text-align: center;
+  letter-spacing: 4.08571px;
+
+  /* Neon Green */
+
+  color: #53FFAA;
+}
+
+.advice-text {
+
+  font-family: 'Manrope';
+  font-style: normal;
+  font-weight: 800;
+  font-size: 28px;
+  line-height: 38px;
+  text-align: center;
+  letter-spacing: -0.3px;
+  height: 170px;
+  min-height: 170px;
+  max-height: 170px;
+
+
+  /* Light Cyan */
+
+  color: #CEE3E9;
+
+}
+
+.images-flex {
+
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  position: relative;
+
+}
